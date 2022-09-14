@@ -5,10 +5,10 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/python:3.10.6
     steps:
       - checkout
-      - run: npm install -q
+      - run: pip3 install -r requirements.txt
   snyk_code_test:
     docker:
     - image: snyk/snyk-cli:npm

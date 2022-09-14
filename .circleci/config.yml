@@ -37,7 +37,7 @@ jobs:
           TAG=0.1.<< pipeline.number >>
           docker build -t $DOCKER_USERNAME/polling-app:$TAG .
           docker login -u $DOCKER_USERNAME --password $DOCKER_PASSWORD
-          docker push $DOCKER_USERNAME/docker-goof:$TAG 
+          docker push $DOCKER_USERNAME/polling-app:$TAG 
   snyk_container_test:
     docker:
     - image: snyk/snyk-cli:npm

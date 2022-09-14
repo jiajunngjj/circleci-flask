@@ -27,7 +27,7 @@ jobs:
         command: |
           snyk auth $SNYK_TOKEN
           snyk test || true
-  docker_build_push:
+  docker_workflow:
     docker:
       - image: cimg/node:18.0.0
     steps:
@@ -63,7 +63,7 @@ jobs:
           git commit -m "update from circleci to trigger argocd"
           git push https://$GITHUB_PERSONAL_TOKEN@github.com/jiajunngjj/argocd-flask.git 
 workflows:
-  build_and_test:
+  flask-deployment-pipeline:
     jobs:
       - build
       - snyk_code_test:
@@ -72,13 +72,13 @@ workflows:
       - snyk_oss_test:
           requires:
             - build
-      - docker_build_push:
+      - docker_workflow:
           requires:
             - snyk_code_test
             - snyk_oss_test
       - snyk_container_test:
           requires:
-            - docker_build_push
+            - docker_workflow
       - trigger_argocd:
           requires:
             - snyk_container_test
